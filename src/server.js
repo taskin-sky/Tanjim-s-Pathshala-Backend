@@ -14,17 +14,7 @@ const app = express();
 
 // Middleware
 // CORS configuration - Allow frontend
-app.use(
-  cors({
-    origin: [
-      'https://tanjim-s-pathshala-frontend.vercel.app/',
-      'https://tanjim-s-pathshala-backend.vercel.app/',
-    ],
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-  })
-);
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
