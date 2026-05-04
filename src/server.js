@@ -18,7 +18,7 @@ app.use(
   cors({
     origin: [
       'https://tanjim-s-pathshala-frontend.vercel.app/',
-      'http://localhost:3000',
+      'https://tanjim-s-pathshala-backend.vercel.app/',
     ],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
