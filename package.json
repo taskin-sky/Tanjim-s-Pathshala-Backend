@@ -10,7 +10,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
     "dev": "nodemon src/server.js",
-    "create-owner": "node src/scripts/createOwner.js"
+    "create-owner": "node src/scripts/createOwner.js",
+    "build": "echo \"Build completed\"",
+    "vercel-start": "node src/server.js"
+  },
   },
   "dependencies": {
     "bcrypt": "^6.0.0",

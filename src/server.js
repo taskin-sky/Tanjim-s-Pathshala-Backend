@@ -48,6 +48,8 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+connectDB();
+
 // Routes
 app.use('/api/owner', ownerRoutes);
 app.use('/api/student', studentRoutes);
@@ -58,8 +60,9 @@ app.get('/', (req, res) => {
   res.send("✅ Tanjim's Pathshala API is running...");
 });
 
-connectDB();
-
-app.listen(PORT, () => {
-  console.log(`✅ Server running on port ${PORT}`);
-});
+// ✅ FOR LOCAL DEVELOPMENT: Conditionally start the server
+if (process.env.NODE_ENVIRONMENT !== 'production') {
+  app.listen(PORT, () => {
+    console.log(`✅ Server is running on port ${PORT}`);
+  });
+}
