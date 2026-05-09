@@ -17,7 +17,7 @@ const app = express();
 // CORS configuration - PRODUCTION
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://tanjim-s-pathshala-frontend.vercel.app/',
+  'https://tanjim-s-pathshala-frontend.vercel.app/api',
 ];
 
 app.use(
