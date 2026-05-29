@@ -12,39 +12,37 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 const app = express();
 
-// Middleware
-// CORS configuration - Allow frontend
-// CORS configuration - PRODUCTION
+// CORS configuration - PRODUCTION READY
 const allowedOrigins = [
   'http://localhost:5173',
-  'https://tanjim-s-pathshala-frontend.vercel.app/api',
+  'http://localhost:3000',
+  'https://tanjim-s-pathshala-frontend.vercel.app',
 ];
 
 app.use(
   cors({
     origin: function (origin, callback) {
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
-        const msg =
-          'The CORS policy for this site does not allow access from the specified Origin.';
-        return callback(new Error(msg), false);
+
+      if (allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        if (origin.match(/https:\/\/.*\.vercel\.app$/)) {
+          callback(null, true);
+        } else {
+          console.warn(`CORS blocked origin: ${origin}`);
+          callback(new Error('Not allowed by CORS'));
+        }
       }
-      return callback(null, true);
     },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+    exposedHeaders: ['Set-Cookie'],
+    optionsSuccessStatus: 200,
   })
 );
-// app.use(
-//   cors({
-//     origin: [
-//       'https://tanjim-s-pathshala-frontend.vercel.app/',
-//       'https://tanjim-s-pathshala-backend.vercel.app/',
-//     ],
-//     credentials: true,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//   })
-// );
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -62,4 +60,5 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
+  console.log(`✅ CORS enabled for:`, allowedOrigins);
 });
